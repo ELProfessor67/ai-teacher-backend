@@ -1,3 +1,5 @@
+import { getAudioData } from "../utils/generateAudio.js";
+
 const practiceSentences = [
     { text: 'The cat is fluffy.', image: '/images/cat.png' },
     { text: 'I like to play outside.', image: '/images/play.png' },
@@ -25,4 +27,25 @@ export const getSentence = async (req, res) => {
             success: false
         })
     }
+}
+
+
+export const responseGenerator = async (req,res) => {
+  try {
+      const text = req.body.text;
+      if(text) return res.status(200).json({
+        success: true
+      });
+
+      const randomIndex = Math.floor(Math.random() * practiceSentences.length);
+      const responseText = `Today, I will teach you this sentence. Speak Loudly ${practiceSentences[randomIndex].text}`;
+      const data = await getAudioData(responseText);
+      res.status(200).json(data)
+
+  } catch (error) {
+      res.status(501).json({
+          message: error.message,
+          success: false
+      })
+  }
 }

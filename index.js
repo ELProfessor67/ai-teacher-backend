@@ -69,5 +69,5 @@ const transcribeAudio = async () => {
     console.log(error,result.results.channels[0].alternatives[0].transcript);
 }
 
-// await getAudio();
-await transcribeAudio();
+await getAudio();
+// await transcribeAudio();
