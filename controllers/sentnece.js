@@ -30,16 +30,36 @@ export const getSentence = async (req, res) => {
 }
 
 
-export const responseGenerator = async (req,res) => {
+// export const responseGenerator = async (req,res) => {
+//   try {
+//       const text = req.body.text;
+//       if(text) return res.status(200).json({
+//         success: true
+//       });
+
+//       const randomIndex = Math.floor(Math.random() * practiceSentences.length);
+//       const responseText = `Today, I will teach you this sentence. Speak Loudly ${practiceSentences[randomIndex].text}`;
+//       const data = await getAudioData(responseText);
+//       res.status(200).json(data)
+
+//   } catch (error) {
+//       res.status(501).json({
+//           message: error.message,
+//           success: false
+//       })
+//   }
+// }
+
+export const getLipsyncData = async (req,res) => {
   try {
       const text = req.body.text;
-      if(text) return res.status(200).json({
-        success: true
+      if(!text) return res.status(401).json({
+        success: false,
+        message: "Please Give Text"
       });
 
-      const randomIndex = Math.floor(Math.random() * practiceSentences.length);
-      const responseText = `Today, I will teach you this sentence. Speak Loudly ${practiceSentences[randomIndex].text}`;
-      const data = await getAudioData(responseText);
+    
+      const data = await getAudioData(text);
       res.status(200).json(data)
 
   } catch (error) {
